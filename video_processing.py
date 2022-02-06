@@ -85,13 +85,17 @@ def setup_cfg():
 class task_Worker():
 
     def run(self, task):
+        if task.get('storage') is None:
+            task['storage'] = '/storage'
+        }
         mp.set_start_method("spawn", force=True)
         # task = get_parser().parse_task()
         setup_logger(name="fvcore")
         logger = setup_logger()
-        logger.info("Arguments: " + str(task))
+        # logger.info("Arguments: " + str(task))
         try:
             os.rmdir(task['storage'] + '/frames')
+            os.remove(task['storage'] +'/temp.mp4')
         except OSError:
             pass
         try:
