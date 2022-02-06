@@ -87,7 +87,7 @@ class task_Worker():
     def run(self, task):
         if task.get('storage') is None:
             task['storage'] = '/storage'
-        }
+        
         mp.set_start_method("spawn", force=True)
         # task = get_parser().parse_task()
         setup_logger(name="fvcore")
