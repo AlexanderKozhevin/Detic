@@ -1,11 +1,11 @@
 _BASE_: "Base-C2_L_R5021k_640b64_4x.yaml"
 MODEL:
-  WEIGHTS: "models/BoxSup-C2_L_CLIP_SwinB_896b32_4x.pth"
+  WEIGHTS: "/computervisioner/Detic/models/BoxSup-C2_L_CLIP_SwinB_896b32_4x.pth"
   DYNAMIC_CLASSIFIER: True
   ROI_BOX_HEAD:
     USE_ZEROSHOT_CLS: True
     IMAGE_LABEL_LOSS: 'max_size'
-    ZEROSHOT_WEIGHT_PATH: 'datasets/metadata/lvis-21k_clip_a+cname.npy'
+    ZEROSHOT_WEIGHT_PATH: '/computervisioner/Detic/datasets/metadata/lvis-21k_clip_a+cname.npy'
     USE_FED_LOSS: False # Federated loss is enabled when DYNAMIC_CLASSIFIER is on
   ROI_HEADS:
     NUM_CLASSES: 22047
@@ -16,7 +16,7 @@ MODEL:
   FPN:
     IN_FEATURES: ["swin1", "swin2", "swin3"]
   RESET_CLS_TESTS: True
-  TEST_CLASSIFIERS: ("datasets/metadata/oid_clip_a+cname.npy","datasets/metadata/o365_clip_a+cnamefix.npy")
+  TEST_CLASSIFIERS: ("/computervisioner/Detic/datasets/metadata/oid_clip_a+cname.npy","/computervisioner/Detic/datasets/metadata/o365_clip_a+cnamefix.npy")
   TEST_NUM_CLASSES: [500, 365]
 SOLVER:
   MAX_ITER: 180000

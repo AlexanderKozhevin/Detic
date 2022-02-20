@@ -18,7 +18,7 @@ from detectron2.config import get_cfg
 from detectron2.data.detection_utils import read_image
 from detectron2.utils.logger import setup_logger
 
-sys.path.insert(0, 'third_party/CenterNet2/projects/CenterNet2/')
+sys.path.insert(0, '/computervisioner/Detic/third_party/CenterNet2/projects/CenterNet2/')
 from centernet.config import add_centernet_config
 from detic.config import add_detic_config
 
@@ -30,7 +30,7 @@ from detectron2.data import MetadataCatalog, DatasetCatalog
 cfg = get_cfg()
 add_centernet_config(cfg)
 add_detic_config(cfg)
-cfg.merge_from_file("configs/Detic_LCOCOI21k_CLIP_SwinB_896b32_4x_ft4x_max-size.yaml")
+cfg.merge_from_file("/computervisioner/Detic/configs/Detic_LCOCOI21k_CLIP_SwinB_896b32_4x_ft4x_max-size.yaml")
 cfg.MODEL.WEIGHTS = 'https://dl.fbaipublicfiles.com/detic/Detic_LCOCOI21k_CLIP_SwinB_896b32_4x_ft4x_max-size.pth'
 cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.5  # set threshold for this model
 cfg.MODEL.ROI_BOX_HEAD.ZEROSHOT_WEIGHT_PATH = 'rand'
@@ -44,10 +44,10 @@ from detic.modeling.utils import reset_cls_test
 # Setup the model's vocabulary using build-in datasets
 
 BUILDIN_CLASSIFIER = {
-    'lvis': 'datasets/metadata/lvis_v1_clip_a+cname.npy',
-    'objects365': 'datasets/metadata/o365_clip_a+cnamefix.npy',
-    'openimages': 'datasets/metadata/oid_clip_a+cname.npy',
-    'coco': 'datasets/metadata/coco_clip_a+cname.npy',
+    'lvis': '/computervisioner/Detic/datasets/metadata/lvis_v1_clip_a+cname.npy',
+    'objects365': '/computervisioner/Detic/datasets/metadata/o365_clip_a+cnamefix.npy',
+    'openimages': '/computervisioner/Detic/datasets/metadata/oid_clip_a+cname.npy',
+    'coco': '/computervisioner/Detic/datasets/metadata/coco_clip_a+cname.npy',
 }
 
 BUILDIN_METADATA_PATH = {
@@ -67,7 +67,7 @@ def setup_cfg():
     cfg = get_cfg()
     add_centernet_config(cfg)
     add_detic_config(cfg)
-    cfg.merge_from_file('configs/Detic_LCOCOI21k_CLIP_SwinB_896b32_4x_ft4x_max-size.yaml')
+    cfg.merge_from_file('/computervisioner/Detic/configs/Detic_LCOCOI21k_CLIP_SwinB_896b32_4x_ft4x_max-size.yaml')
     cfg.merge_from_list('MODEL.WEIGHTS models/Detic_LCOCOI21k_CLIP_SwinB_896b32_4x_ft4x_max-size.pth')
     # Set score_threshold for builtin models
     cfg.MODEL.RETINANET.SCORE_THRESH_TEST = 0.6
@@ -87,7 +87,7 @@ class task_Worker():
     def run(self, task):
         if task.get('storage') is None:
             task['storage'] = '/storage'
-        
+
         mp.set_start_method("spawn", force=True)
         # task = get_parser().parse_task()
         setup_logger(name="fvcore")

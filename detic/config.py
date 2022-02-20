@@ -8,19 +8,19 @@ def add_detic_config(cfg):
 
     # Open-vocabulary classifier
     _C.MODEL.ROI_BOX_HEAD.USE_ZEROSHOT_CLS = False # Use fixed classifier for open-vocabulary detection
-    _C.MODEL.ROI_BOX_HEAD.ZEROSHOT_WEIGHT_PATH = 'datasets/metadata/lvis_v1_clip_a+cname.npy'
+    _C.MODEL.ROI_BOX_HEAD.ZEROSHOT_WEIGHT_PATH = '/computervisioner/Detic/datasets/metadata/lvis_v1_clip_a+cname.npy'
     _C.MODEL.ROI_BOX_HEAD.ZEROSHOT_WEIGHT_DIM = 512
     _C.MODEL.ROI_BOX_HEAD.NORM_WEIGHT = True
     _C.MODEL.ROI_BOX_HEAD.NORM_TEMP = 50.0
     _C.MODEL.ROI_BOX_HEAD.IGNORE_ZERO_CATS = False
     _C.MODEL.ROI_BOX_HEAD.USE_BIAS = 0.0 # >= 0: not use
-    
+
     _C.MODEL.ROI_BOX_HEAD.MULT_PROPOSAL_SCORE = False # CenterNet2
     _C.MODEL.ROI_BOX_HEAD.USE_SIGMOID_CE = False
     _C.MODEL.ROI_BOX_HEAD.PRIOR_PROB = 0.01
     _C.MODEL.ROI_BOX_HEAD.USE_FED_LOSS = False # Federated Loss
     _C.MODEL.ROI_BOX_HEAD.CAT_FREQ_PATH = \
-        'datasets/metadata/lvis_v1_train_cat_info.json'
+        '/computervisioner/Detic/datasets/metadata/lvis_v1_train_cat_info.json'
     _C.MODEL.ROI_BOX_HEAD.FED_LOSS_NUM_CAT = 50
     _C.MODEL.ROI_BOX_HEAD.FED_LOSS_FREQ_WEIGHT = 0.5
 
@@ -65,7 +65,7 @@ def add_detic_config(cfg):
     _C.MODEL.TIMM.NORM = 'FrozenBN'
     _C.MODEL.TIMM.FREEZE_AT = 0
     _C.MODEL.DATASET_LOSS_WEIGHT = []
-    
+
     # Multi-dataset dataloader
     _C.DATALOADER.DATASET_RATIO = [1, 1] # sample ratio
     _C.DATALOADER.USE_RFS = [False, False]
@@ -74,13 +74,13 @@ def add_detic_config(cfg):
     _C.DATALOADER.USE_DIFF_BS_SIZE = False # Use different batchsize for each dataset
     _C.DATALOADER.DATASET_BS = [8, 32] # Used when USE_DIFF_BS_SIZE is on
     _C.DATALOADER.DATASET_INPUT_SIZE = [896, 384] # Used when USE_DIFF_BS_SIZE is on
-    _C.DATALOADER.DATASET_INPUT_SCALE = [(0.1, 2.0), (0.5, 1.5)] # Used when USE_DIFF_BS_SIZE is on 
+    _C.DATALOADER.DATASET_INPUT_SCALE = [(0.1, 2.0), (0.5, 1.5)] # Used when USE_DIFF_BS_SIZE is on
     _C.DATALOADER.DATASET_MIN_SIZES = [(640, 800), (320, 400)] # Used when USE_DIFF_BS_SIZE is on
     _C.DATALOADER.DATASET_MAX_SIZES = [1333, 667] # Used when USE_DIFF_BS_SIZE is on
     _C.DATALOADER.USE_TAR_DATASET = False # for ImageNet-21K, directly reading from unziped files
-    _C.DATALOADER.TARFILE_PATH = 'datasets/imagenet/metadata-22k/tar_files.npy'
-    _C.DATALOADER.TAR_INDEX_DIR = 'datasets/imagenet/metadata-22k/tarindex_npy'
-    
+    _C.DATALOADER.TARFILE_PATH = '/computervisioner/Detic/datasets/imagenet/metadata-22k/tar_files.npy'
+    _C.DATALOADER.TAR_INDEX_DIR = '/computervisioner/Detic/datasets/imagenet/metadata-22k/tarindex_npy'
+
     _C.SOLVER.USE_CUSTOM_SOLVER = False
     _C.SOLVER.OPTIMIZER = 'SGD'
     _C.SOLVER.BACKBONE_MULTIPLIER = 1.0 # Used in DETR
@@ -117,7 +117,7 @@ def add_detic_config(cfg):
     _C.INPUT.TEST_SIZE = 640
     _C.INPUT.SCALE_RANGE = (0.1, 2.)
     # 'default' for fixed short/ long edge, 'square' for max size=INPUT.SIZE
-    _C.INPUT.TEST_INPUT_TYPE = 'default' 
+    _C.INPUT.TEST_INPUT_TYPE = 'default'
 
     _C.FIND_UNUSED_PARAM = True
     _C.EVAL_PRED_AR = False
@@ -128,4 +128,4 @@ def add_detic_config(cfg):
     _C.FP16 = False
     _C.EVAL_AP_FIX = False
     _C.GEN_PSEDO_LABELS = False
-    _C.SAVE_DEBUG_PATH = 'output/save_debug/'
+    _C.SAVE_DEBUG_PATH = '/computervisioner/Detic/output/save_debug/'
