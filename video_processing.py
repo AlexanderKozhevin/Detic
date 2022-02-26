@@ -84,9 +84,12 @@ def setup_cfg():
 
 class task_Worker():
 
+    def __init__(self, storage):
+        self.storage = storage
+
     def run(self, task):
-        if task.get('storage') is None:
-            task['storage'] = '/storage'
+        if self.storage is None:
+            self.storage = '/storage'
 
         mp.set_start_method("spawn", force=True)
         # task = get_parser().parse_task()
@@ -94,22 +97,22 @@ class task_Worker():
         logger = setup_logger()
         # logger.info("Arguments: " + str(task))
         try:
-            os.rmdir(task['storage'] + '/frames')
-            os.remove(task['storage'] +'/temp.mp4')
+            os.rmdir(self.storage + '/frames')
+            os.remove(self.storage +'/temp.mp4')
         except OSError:
             pass
         try:
-            os.makedirs(task['storage'] + '/frames')
+            os.makedirs(self.storage + '/frames')
         except OSError:
             pass
 
 
-        urllib.request.urlretrieve(task['url'], task['storage'] + '/temp.mp4')
-        os.system('ffmpeg -i ' + task['storage'] +'/temp.mp4 -vf "select=eq(pict_type\,I)" -vsync vfr ' + task['storage'] + '/frames/frame-%02d.png')
+        urllib.request.urlretrieve(task['url'], self.storage + '/temp.mp4')
+        os.system('ffmpeg -i ' + self.storage +'/temp.mp4 -vf "select=eq(pict_type\,I)" -vsync vfr ' + self.storage + '/frames/frame-%02d.png')
 
         frames = []
         result = []
-        for img in sorted(glob.glob(task['storage'] + "/frames/*.png")):
+        for img in sorted(glob.glob(self.storage + "/frames/*.png")):
             cv_img = cv2.imread(img)
             frames.append(cv_img)
 
@@ -159,5 +162,5 @@ class task_Worker():
           final_response.append(frame_data)
         # print(final_response)
         json_string = json.dumps(final_response)
-        with open(task['storage'] + '/' + task['id'] + '.json', 'w') as outfile:
+        with open(self.storage + '/' + task['id'] + '.json', 'w') as outfile:
             outfile.write(json_string)
